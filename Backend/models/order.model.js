@@ -26,6 +26,10 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    pinCode: {
+      type: Number,
+      required: true,
+    },
     status: {
       type: String,
       default: 'Pending',
