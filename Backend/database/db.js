@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const mongoURI ="mongodb://127.0.0.1:27017/todolist";
+const mongoURI ="mongodb://127.0.0.1:27017/api";
 
 const connectDB = () => {
     mongoose.connect(mongoURI) 
