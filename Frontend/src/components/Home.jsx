@@ -1,5 +1,5 @@
 import Nav from "../homeComponents/Navbar";
-import Tabs from "../homeComponents/Tabbar";
+import Tabs from "../homeComponents/TabBar"
 import Slider from "../homeComponents/Slider";
 import Prod_Section from "../homeComponents/ProductSection";
 import Footer from "../homeComponents/Footer";
