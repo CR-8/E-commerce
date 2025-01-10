@@ -3,7 +3,8 @@ import ProductCard from "./ProductCard";
 const ProductSection = ({
   products = [],
   title = "Our Products",
-  onAddToCart = (id) => console.log(`Added product ${id} to cart`),
+  onAddToCart = (id, quantity) =>
+    console.log(`Added product ${id} to cart, quantity: ${quantity}`),
   onBuyNow = (id) => console.log(`Buying product ${id}`),
   className = "",
 }) => {
