@@ -7,6 +7,6 @@ productRouter.post("/", ProductController.create);
 productRouter.put("/:id", ProductController.update);
 
 productRouter.get("/", ProductController.findAll);
-productRouter.get("/:id", ProductController.findById);
+productRouter.get("/:id", ProductController.findProduct);
 
-export default authRouter;
+export default productRouter;

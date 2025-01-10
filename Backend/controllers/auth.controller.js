@@ -48,7 +48,7 @@ const signup = async (req, res) => {
     }
 }
 
-const findUserbyId = async (req, res) => {
+const SearchUser = async (req, res) => {
     try{
         const id = req.params.id;
         const found = await User.findById(id);
@@ -59,4 +59,4 @@ const findUserbyId = async (req, res) => {
     }
 }
 
-export default { login, signup, findUserbyId };
+export  { login, signup, SearchUser };
