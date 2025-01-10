@@ -1,120 +1,65 @@
-import React, { useState } from "react";
-import {
-  Home,
-  ShoppingCart,
-  Package,
-  Settings,
-  User,
-  Menu,
-  X,
-} from "lucide-react";
+import React from "react";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+function Navbar() {
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Desktop Navigation */}
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-gray-800">Logo</span>
-            </div>
-            <div className="hidden sm:flex sm:items-center sm:space-x-8 sm:ml-10">
-              <a
-                href="/"
-                className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
-              >
-                <Home size={20} className="text-gray-600 hover:text-gray-900" />
-                <span className="text-gray-600 hover:text-gray-900">Home</span>
-              </a>
-              <a
-                href="/cart"
-                className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
-              >
-                <ShoppingCart size={20} className="text-gray-600 hover:text-gray-900" />
-                <span className="text-gray-600 hover:text-gray-900">Cart</span>
-              </a>
-              <a
-                href="/orders"
-                className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
-              >
-                <Package size={20} className="text-gray-600 hover:text-gray-900" />
-                <span className="text-gray-600 hover:text-gray-900">Orders</span>
-              </a>
-              <a
-                href="/admin"
-                className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
-              >
-                <Settings size={20} className="text-gray-600 hover:text-gray-900" />
-                <span className="text-gray-600 hover:text-gray-900">Admin</span>
-              </a>
+    <div className="navbar z-10 bg-base-100">
+      <div className="flex-1">
+        <a className="btn btn-ghost text-primary text-xl">E-COM</a>
+      </div>
+      <div className="flex-none">
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <div className="indicator">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span className="badge badge-secondary badge-sm indicator-item">8</span>
             </div>
           </div>
-
-          {/* User Account */}
-          <div className="hidden sm:flex sm:items-center sm:space-x-4">
-            <button className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
-              <User size={20} className="text-gray-600 hover:text-gray-900" />
-              <span className="text-gray-600 hover:text-gray-900">Login/Signup</span>
-            </button>
+          <div
+            tabIndex={5}
+            className="card card-compact dropdown-content bg-base-200 mt-3 w-52 shadow-xl">
+            <div className="card-body">
+              <span className="text-lg font-bold">8 Items</span>
+              <span className="text-secondary">Subtotal: $999</span>
+              <div className="card-actions">
+                <button className="btn btn-primary btn-block">View cart</button>
+              </div>
+            </div>
           </div>
-
-          {/* Mobile menu button */}
-          <div className="flex items-center sm:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 hover:text-gray-900 focus:outline-none"
-            >
-              {isOpen ? <X size={24} className="text-gray-600 hover:text-gray-900" /> : <Menu size={24} className="text-gray-600 hover:text-gray-900" />}
-            </button>
+        </div>
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            </div>
           </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-200 mt-3 w-52 p-2 shadow-xl rounded-box">
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge badge-secondary">New</span>
+              </a>
+            </li>
+            <li><a>Settings</a></li>
+          </ul>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="sm:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <a
-              href="/"
-              className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900"
-            >
-              <Home size={20} className="text-gray-600 hover:text-gray-900" />
-              <span className="text-gray-600 hover:text-gray-900">Home</span>
-            </a>
-            <a
-              href="/cart"
-              className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900"
-            >
-              <ShoppingCart size={20} className="text-gray-600 hover:text-gray-900" />
-              <span className="text-gray-600 hover:text-gray-900">Cart</span>
-            </a>
-            <a
-              href="/orders"
-              className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900"
-            >
-              <Package size={20} className="text-gray-600 hover:text-gray-900" />
-              <span className="text-gray-600 hover:text-gray-900">Orders</span>
-            </a>
-            <a
-              href="/admin"
-              className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900"
-            >
-              <Settings size={20} className="text-gray-600 hover:text-gray-900" />
-              <span className="text-gray-600 hover:text-gray-900">Admin</span>
-            </a>
-            <button className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900 w-full">
-              <User size={20} className="text-gray-600 hover:text-gray-900" />
-              <span className="text-gray-600 hover:text-gray-900">Login/Signup</span>
-            </button>
-          </div>
-        </div>
-      )}
-    </nav>
+    </div>
   );
-};
+}
 
 export default Navbar;
-

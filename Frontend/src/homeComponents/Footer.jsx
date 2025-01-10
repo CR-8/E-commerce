@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-transparent text-gray-300">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -114,12 +114,7 @@ const Footer = () => {
                 placeholder="Your email address"
                 className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:border-gray-500"
               />
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Subscribe
-              </button>
+              <button className="btn btn-primary w-full">Subscribe</button>
             </form>
           </div>
         </div>
