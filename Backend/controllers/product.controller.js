@@ -11,7 +11,7 @@ const create = async (req, res) => {
       ],
     });
     if (prodExist) {
-      return res.send("Product already exists");
+      return res.json("Product already exists");
     }
     const product = new Product({
       company: req.body.company,
@@ -22,22 +22,22 @@ const create = async (req, res) => {
       stock: req.body.stock,
       image: req.body.image,
     });
-    product.save();
-    res.json("Product added\n" + product);
+    const newProduct = await product.save();
+    res.json(newProduct);
   } catch (err) {
-    res.json("Internal Server Error");
+    res.status(500).json({ message: err.message });
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const product = await Product.find();
-    if (product.length === 0) {
-      return res.json("No Products in inventory");
+    const products = await Product.find();
+    if (products.length === 0) {
+      return res.status(404).json("No Products in inventory");
     }
-    res.json("list of products\n" + product);
+    res.json(products);
   } catch (err) {
-    res.json("Internal Server Error");
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -45,30 +45,90 @@ const findProduct = async (req, res) => {
   const id = req.params.id;
   try {
     const product = await Product.findById(id);
-    if (product.length === 0) {
-      return res.json("No Products in inventory");
+    if (!product) {
+      return res.status(404).json("No Products in inventory");
     }
-    res.json(" product details\n" + product);
+    res.json(product);
   } catch (err) {
-    res.json("Internal Server Error");
+    res.status(500).json({ message: err.message });
   }
 };
 
 const update = async (req, res) => {
   const id = req.params.id;
   try {
-    const product = await Product.findByIdAndUpdate(id, req.body);
-  } catch (error) {
-    res.json("Internal Server Error");
+    const product = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!product) {
+      return res.status(404).json("No Products in inventory");
+    }
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
+
 const remove = async (req, res) => {
   const id = req.params.id;
   try {
     const product = await Product.findByIdAndDelete(id);
+    if (!product) {
+      return res.status(404).json("No Products in inventory");
+    }
+    res.json({ message: "Product deleted successfully" });
   } catch (error) {
-    res.json("Internal Server Error");
+    res.status(500).json({ message: error.message });
   }
 };
 
-export default { findAll, findProduct, create, update };
+export default { findAll, findProduct, create, update, remove };
+
+
+// [
+//   {
+//     "company": "TestCorp",
+//     "prodName": "Laptop Basics",
+//     "description": "A basic laptop for everyday tasks",
+//     "price": 999.99,
+//     "category": "Electronics",
+//     "stock": 100,
+//     "image": "https://example.com/images/laptop.jpg"
+//   },
+//   {
+//     "company": "AnotherBrand",
+//     "prodName": "Gaming Mouse",
+//     "description": "High precision mouse with programmable buttons",
+//     "price": 49.99,
+//     "category": "Accessories",
+//     "stock": 250,
+//     "image": "https://example.com/images/mouse.jpg"
+//   },
+//   {
+//     "company": "AudioX",
+//     "prodName": "Noise Cancelling Headphones",
+//     "description": "Over-ear headphones with active noise cancellation",
+//     "price": 199.99,
+//     "category": "Audio",
+//     "stock": 75,
+//     "image": "https://example.com/images/headphones.jpg"
+//   },
+//   {
+//     "company": "FutureTech",
+//     "prodName": "VR Headset",
+//     "description": "Virtual reality headset with 4K resolution",
+//     "price": 399.99,
+//     "category": "Electronics",
+//     "stock": 30,
+//     "image": "https://example.com/images/vrheadset.jpg"
+//   },
+//   {
+//     "company": "PowerStore",
+//     "prodName": "Portable Charger",
+//     "description": "High-capacity power bank with fast charging",
+//     "price": 29.99,
+//     "category": "Accessories",
+//     "stock": 500,
+//     "image": "https://example.com/images/powerbank.jpg"
+//   }
+// ]
