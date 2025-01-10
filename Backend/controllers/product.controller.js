@@ -31,9 +31,9 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   try {
-    const products = await Product.find();
-    if (products.length === 0) {
-      return res.status(404).json("No Products in inventory");
+    const product = await Product.findOne({category: req.body.category});
+    if (product.length === 0) {
+      return res.json("No Products in inventory");
     }
     res.json(products);
   } catch (err) {
