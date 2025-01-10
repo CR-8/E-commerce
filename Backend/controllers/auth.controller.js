@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import User from '../models/auth.model.js';
+import User from '../models/users.model.js';
 
 const login = async (req, res) => {
     try {
