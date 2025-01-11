@@ -1,52 +1,19 @@
 import Product from "../models/product.model.js";
 
-const create = async (req, res) => {
+export const getAllProducts = async (req, res) => {
   try {
-    const prodExist = await Product.findOne({
-      $or: [
-        { company: req.body.company },
-        { prodName: req.body.prodName },
-        { category: req.body.category },
-        { price: req.body.price },
-      ],
-    });
-    if (prodExist) {
-      return res.json("Product already exists");
-    }
-    const product = new Product({
-      company: req.body.company,
-      prodName: req.body.prodName,
-      description: req.body.description,
-      price: req.body.price,
-      category: req.body.category,
-      stock: req.body.stock,
-      image: req.body.image,
-    });
-    const newProduct = await product.save();
-    res.json(newProduct);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-const findAll = async (req, res) => {
-  try {
-    const product = await Product.findOne({category: req.body.category});
-    if (product.length === 0) {
-      return res.json("No Products in inventory");
-    }
+    const products = await Product.find();
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const findProduct = async (req, res) => {
-  const id = req.params.id;
+export const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json("No Products in inventory");
+      return res.status(404).json({ message: "Product not found" });
     }
     res.json(product);
   } catch (err) {
@@ -54,81 +21,122 @@ const findProduct = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
-  const id = req.params.id;
+export const createProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(id, req.body, {
+    const product = new Product(req.body);
+    await product.save();
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const updateProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
+      runValidators: true,
     });
     if (!product) {
-      return res.status(404).json("No Products in inventory");
+      return res.status(404).json({ message: "Product not found" });
     }
     res.json(product);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json({ message: "Product deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const remove = async (req, res) => {
-  const id = req.params.id;
+export const addReview = async (req, res) => {
   try {
-    const product = await Product.findByIdAndDelete(id);
+    const { userId, userName, reviewText, rating } = req.body;
+    const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json("No Products in inventory");
+      return res.status(404).json({ message: "Product not found" });
     }
-    res.json({ message: "Product deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+
+    product.reviewList.push({
+      userId,
+      userName,
+      reviewText,
+      rating,
+    });
+
+    product.reviews = product.reviewList.length;
+    product.rating =
+      product.reviewList.reduce((acc, review) => acc + review.rating, 0) /
+      product.reviews;
+
+    await product.save();
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
-export default { findAll, findProduct, create, update, remove };
+export const removeReview = async (req, res) => {
+  try {
+    const { reviewId } = req.body;
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
 
+    product.reviewList = product.reviewList.filter(
+      (review) => review._id.toString() !== reviewId
+    );
 
-// [
-//   {
-//     "company": "TestCorp",
-//     "prodName": "Laptop Basics",
-//     "description": "A basic laptop for everyday tasks",
-//     "price": 999.99,
-//     "category": "Electronics",
-//     "stock": 100,
-//     "image": "https://example.com/images/laptop.jpg"
-//   },
-//   {
-//     "company": "AnotherBrand",
-//     "prodName": "Gaming Mouse",
-//     "description": "High precision mouse with programmable buttons",
-//     "price": 49.99,
-//     "category": "Accessories",
-//     "stock": 250,
-//     "image": "https://example.com/images/mouse.jpg"
-//   },
-//   {
-//     "company": "AudioX",
-//     "prodName": "Noise Cancelling Headphones",
-//     "description": "Over-ear headphones with active noise cancellation",
-//     "price": 199.99,
-//     "category": "Audio",
-//     "stock": 75,
-//     "image": "https://example.com/images/headphones.jpg"
-//   },
-//   {
-//     "company": "FutureTech",
-//     "prodName": "VR Headset",
-//     "description": "Virtual reality headset with 4K resolution",
-//     "price": 399.99,
-//     "category": "Electronics",
-//     "stock": 30,
-//     "image": "https://example.com/images/vrheadset.jpg"
-//   },
-//   {
-//     "company": "PowerStore",
-//     "prodName": "Portable Charger",
-//     "description": "High-capacity power bank with fast charging",
-//     "price": 29.99,
-//     "category": "Accessories",
-//     "stock": 500,
-//     "image": "https://example.com/images/powerbank.jpg"
-//   }
-// ]
+    product.reviews = product.reviewList.length;
+    product.rating =
+      product.reviewList.length > 0
+        ? product.reviewList.reduce((acc, review) => acc + review.rating, 0) /
+          product.reviewList.length
+        : 0;
+
+    await product.save();
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const getFeaturedProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ isFeatured: true });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getProductsByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    const products = await Product.find({ category });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export default {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  addReview,
+  removeReview,
+  getFeaturedProducts,
+  getProductsByCategory,
+};
