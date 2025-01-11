@@ -46,12 +46,8 @@ const authSchema = new Schema({
         type: Boolean,
         default: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+}
+    , { timestamps: true }
+);
 const auth = mongoose.model("auth", authSchema);
 export default auth;
-
-
