@@ -8,4 +8,3 @@ cartRouter.post("/:userId/add", addToCart);
 cartRouter.delete("/:userId/remove", removeFromCart);
 
 export default cartRouter;
-

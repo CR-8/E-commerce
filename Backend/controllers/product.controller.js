@@ -129,6 +129,5 @@ export default {
   deleteProduct,
   addReview,
   removeReview,
-  getFeaturedProducts,
   getProductsByCategory,
 };

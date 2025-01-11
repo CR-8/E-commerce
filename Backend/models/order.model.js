@@ -70,5 +70,3 @@ orderSchema.pre('save', function(next) {
 
 const order = mongoose.model('Order', orderSchema);
 export default order;
-
-
