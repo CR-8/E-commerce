@@ -5,14 +5,10 @@ const { Schema } = mongoose;
 const authSchema = new Schema({
     userId: {
         type: String,
-        required: true,
     },
-    firstName: {
+    name: {
         type: String,
         required: true,
-    },
-    lastName: {
-        type: String,
     },
     email: {
         type: String,
