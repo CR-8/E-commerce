@@ -6,6 +6,8 @@ import Tabs from '../components/Tabs'
 import Marquee from '../components/Marquee'
 import Categories from '../components/Salecomponents-category'
 import Featured from '../components/Featured'
+import Trending from '../components/Trending'
+import End from '../components/End-banner'
 
 export default function Homepage() {
   return (
@@ -16,6 +18,8 @@ export default function Homepage() {
         <Marquee/>
         <Categories/>
         <Featured/>
+        <Trending/>
+        <End/>
         <Footer/>
     </div>
   )
