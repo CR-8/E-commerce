@@ -63,7 +63,6 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-// Update the updatedAt timestamp before saving
 orderSchema.pre('save', function(next) {
   this.updatedAt = new Date();
   next();
@@ -71,3 +70,5 @@ orderSchema.pre('save', function(next) {
 
 const order = mongoose.model('Order', orderSchema);
 export default order;
+
+

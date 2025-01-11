@@ -59,7 +59,7 @@ const productSchema = new mongoose.Schema(
           userId: String,
           userName: String,
           reviewText: String,
-          rating: Number, // rating for this specific review
+          rating: Number,
           date: { type: Date, default: Date.now },
         },
       ],

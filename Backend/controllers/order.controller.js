@@ -6,13 +6,11 @@ export const createOrder = async (req, res) => {
   try {
     const { userId, shippingAddress, paymentMethod } = req.body;
 
-    // Get user's cart
     const cart = await Cart.findOne({ userId });
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "Cart is empty" });
     }
 
-    // Validate stock availability for all items
     for (const item of cart.items) {
       const product = await Product.findById(item.productId);
       if (!product) {
@@ -25,10 +23,8 @@ export const createOrder = async (req, res) => {
       }
     }
 
-    // Generate purchase ID
     const purchaseId = 'ORD' + Date.now().toString();
 
-    // Create order
     const newOrder = new Order({
       userId,
       purchaseId,
@@ -38,14 +34,12 @@ export const createOrder = async (req, res) => {
       paymentMethod,
     });
 
-    // Update product stock
     for (const item of cart.items) {
       await Product.findByIdAndUpdate(item.productId, {
         $inc: { stock: -item.quantity }
       });
     }
 
-    // Save order and clear cart
     await newOrder.save();
     cart.items = [];
     await cart.save();
@@ -84,7 +78,6 @@ export const updateOrder = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    // If cancelling order, restore product stock
     if (req.body.orderStatus === 'cancelled' && order.orderStatus !== 'cancelled') {
       for (const item of order.items) {
         await Product.findByIdAndUpdate(item.productId, {
@@ -109,7 +102,6 @@ export const deleteOrder = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    // Restore product stock if order is not cancelled
     if (order.orderStatus !== 'cancelled') {
       for (const item of order.items) {
         await Product.findByIdAndUpdate(item.productId, {
@@ -125,7 +117,6 @@ export const deleteOrder = async (req, res) => {
   }
 };
 
-// Get user's order history
 export const getUserOrders = async (req, res) => {
   try {
     const userId = req.params.userId;

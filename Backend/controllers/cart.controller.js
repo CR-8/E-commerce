@@ -19,7 +19,6 @@ export const addToCart = async (req, res) => {
     const userId = req.params.userId;
     const { productId, quantity } = req.body;
 
-    // Validate product exists and has enough stock
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
@@ -39,16 +38,15 @@ export const addToCart = async (req, res) => {
     }
 
     const existingItem = cart.items.find(
-      (item) => item.productId.toString() === productId
+      (item) => item.productId === productId
     );
 
     if (existingItem) {
-      // Check if updated quantity exceeds stock
       if (product.stock < (existingItem.quantity + quantity)) {
         return res.status(400).json({ message: "Not enough stock available" });
       }
       existingItem.quantity += quantity;
-      existingItem.price = product.price; // Update price in case it changed
+      existingItem.price = product.price;
     } else {
       cart.items.push({ productId, price: product.price, quantity });
     }
@@ -71,7 +69,7 @@ export const removeFromCart = async (req, res) => {
     }
 
     cart.items = cart.items.filter(
-      (item) => item.productId.toString() !== productId
+      (item) => item.productId !== productId
     );
     
     await cart.save();
