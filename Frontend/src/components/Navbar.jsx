@@ -3,12 +3,16 @@ import { CiSearch, CiUser, CiShoppingCart } from "react-icons/ci"
 import { FaHeart } from "react-icons/fa"
 
 export default function Navbar() {
-  const leftLinks = ['Women', 'Men', 'About us']
+  const leftLinks = [
+    { title : 'Women' , href: '/'},
+    { title : 'Men' , href: '/'}, 
+    { title : 'About us' , href: '/'} 
+  ] 
   const rightLinks = [
-    { icon: CiSearch, label: 'Search' },
-    { icon: CiUser, label: 'Sign in' },
-    { icon: FaHeart, label: 'Saved' },
-    { icon: CiShoppingCart, label: 'Cart' }
+    { icon: CiSearch, label: 'Search' , href: '/' },
+    { icon: CiUser, label: 'Sign in', href: '/signin' },
+    { icon: FaHeart, label: 'Saved', href: '/' },
+    { icon: CiShoppingCart, label: 'Cart' , href: '/cart' }
   ]
 
   return (
@@ -17,22 +21,22 @@ export default function Navbar() {
       <div className='flex justify-evenly w-[20rem] items-center'>
         {leftLinks.map((link) => (
           <h2
-            key={link}
+            key={link.title}
             className='text-md cursor-pointer font-semibold hover:text-orange-500 transition-colors'
           >
-            {link}
+            <a href={link.href}>{link.title}</a>
           </h2>
         ))}
       </div>
       <h1 className='text-2xl font-bold'>ECOVOGUE</h1>
       <div className='flex justify-around w-[24rem] mr-7 items-center'>
-        {rightLinks.map(({ icon: Icon, label }) => (
+        {rightLinks.map(({ icon: Icon, label, href }) => (
           <div
             className='flex items-center ml-2 cursor-pointer hover:text-orange-500 transition-colors'
             key={label}
           >
             <Icon className='text-lg font-semibold mr-1' />
-            <h3>{label}</h3>
+            <h3><a href={href}>{label}</a></h3>
           </div>
         ))}
       </div>

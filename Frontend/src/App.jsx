@@ -1,10 +1,10 @@
 import React from 'react'
-import Homepage from './pages/homepage'
+import Router from './pages/router'
 
 export default function App() {
   return (
     <div>
-      <Homepage/>
+      <Router/>
     </div>
   )
 }
