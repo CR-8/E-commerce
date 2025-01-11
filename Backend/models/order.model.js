@@ -6,34 +6,19 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    items: [
-      {
-        productId: {
-          type: String,
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
-    shippingAddress: {
+    purchaseId: {
       type: String,
       required: true,
     },
-    pinCode: {
+    amount: {
       type: Number,
       required: true,
     },
-    status: {
+    address: {
       type: String,
-      default: 'Pending',
-    },
+      required: true,
+    }
+  
   });
 
   const order = mongoose.model('Order', orderSchema);
