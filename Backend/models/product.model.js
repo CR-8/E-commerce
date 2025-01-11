@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    prodName: {
+    name: {
       type: String,
       required: true,
     },
@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema(
     },
     discount: {
       type: Number,
-      default: 0, // percentage (e.g., 10 for 10% off)
+      default: 0,
       min: 0,
       max: 100,
     },
@@ -59,7 +59,7 @@ const productSchema = new mongoose.Schema(
           userId: String,
           userName: String,
           reviewText: String,
-          rating: Number, // rating for this specific review
+          rating: Number,
           date: { type: Date, default: Date.now },
         },
       ],
@@ -85,5 +85,3 @@ const productSchema = new mongoose.Schema(
 const prod = mongoose.model("Product", productSchema);
 
 export default prod;
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-

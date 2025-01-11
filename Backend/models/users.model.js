@@ -5,14 +5,10 @@ const { Schema } = mongoose;
 const authSchema = new Schema({
     userId: {
         type: String,
-        required: true,
     },
-    firstName: {
+    name: {
         type: String,
         required: true,
-    },
-    lastName: {
-        type: String,
     },
     email: {
         type: String,
@@ -52,4 +48,3 @@ const authSchema = new Schema({
 
 const auth = mongoose.model("auth", authSchema);
 export default auth;
-
