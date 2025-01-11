@@ -1,45 +1,47 @@
 import React from 'react';
 
-const FeaturedProducts = () => {
+const TrendingPicks = () => {
   const products = [
     {
       id: 1,
-      name: "High-Waisted Recycled Jeans",
-      price: 100,
-      img: "https://m.media-amazon.com/images/I/519iDAn3VkL._AC_SX679_.jpg"
+      name: "Suave Black Shoe",
+      price: "Add to Cart",
+      img: "https://m.media-amazon.com/images/I/71KjPeUVjZL._AC_UL480_FMwebp_QL65_.jpg"
     },
     {
       id: 2,
-      name: "Organic Cotton Oversized T-shirt",
-      price: 100,
-      img: "https://m.media-amazon.com/images/I/81EXL-Wd+JL._AC_SX679_.jpg"
+      name: "LV Mini Purse",
+      price: "Add to Cart",
+      img: "https://m.media-amazon.com/images/I/71qogAWwQBL._AC_UL480_FMwebp_QL65_.jpg"
     },
     {
       id: 3,
-      name: "Recycled Denim Jacket",
-      price: 100,
-      img: "https://m.media-amazon.com/images/I/913sL+OvALL._AC_SY741_.jpg"
+      name: "Ruche 2 Piece Set",
+      price: "$100",
+      img: "https://m.media-amazon.com/images/I/51EbcYxnlPL._AC_SY550_.jpg"
     },
     {
       id: 4,
-      name: "Eco-Friendly Knit Sweater",
-      price: 100,
-      img: "https://m.media-amazon.com/images/I/71TzdE5RxiL._AC_SX569_.jpg"
+      name: "Alo Gym Set",
+      price: "$100",
+      img: "https://m.media-amazon.com/images/I/710rEpIIJdL.__AC_SY445_SX342_QL70_FMwebp_.jpg"
     }
   ];
 
   return (
     <div className="w-full py-8 px-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Featured Products</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">Trending Picks</h1>
       
       <div className="relative max-w-7xl mx-auto">
+        {/* Navigation arrows */}
         <button className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full p-2 z-10">
           <div className="w-6 h-6 flex items-center justify-center">←</div>
         </button>
-        <button className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full p-2 z-10">
+        <button className="absolute right-0 top-1/2 -translate-y-1/2rounded-full p-2 z-10">
           <div className="w-6 h-6 flex items-center justify-center">→</div>
         </button>
 
+        {/* Products grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-8">
           {products.map((product) => (
             <div key={product.id} className="flex flex-col">
@@ -51,9 +53,9 @@ const FeaturedProducts = () => {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <h2 className="text-lg font-medium mb-2">{product.name}</h2>
-              <p className="text-xl font-bold mb-3">${product.price}</p>
-              <button className="text-orange-500 font-medium hover:text-orange-600 transition-colors">
+              <h2 className="text-lg font-medium text-gray-800 mb-2">{product.name}</h2>
+              <p className="text-lg font-bold mb-2">{product.price}</p>
+              <button className="text-orange-400 font-medium hover:text-orange-500 transition-colors flex items-center gap-2">
                 Add to Cart 🛒
               </button>
             </div>
@@ -64,4 +66,4 @@ const FeaturedProducts = () => {
   );
 };
 
-export default FeaturedProducts;
+export default TrendingPicks;
