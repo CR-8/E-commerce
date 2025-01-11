@@ -1,0 +1,121 @@
+                    USERS API TEST
+ {
+      "userId": "user001",
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "hashedpassword123",
+      "isAdmin": true,
+      "phoneNumber": "1234567890",
+      "address": {
+        "street": "123 Elm Street",
+        "city": "Springfield",
+        "state": "Illinois",
+        "postalCode": "62704",
+        "country": "USA"
+      },
+      "profileImage": "https://example.com/profiles/johndoe.jpg",
+      "isActive": true,
+      "createdAt": "2025-01-01T10:00:00Z"
+    }
+                                            ORDER API TEST
+
+
+
+  
+{
+  "userId": "6782484b1dc0cb1a5cce545e" ,
+  "shippingAddress": "Hello gaon , Chacha pur, Chachi ganj , Punjab " ,
+  "paymentMethod": "upi" ,
+  "productId": ["678248f1f8c28b93bf21fece" , "678249d2f8c28b93bf21fed6"]
+}
+
+                                        PRODUCT API TEST
+
+  {
+    "company": "TechGear",
+    "name": "Wireless Headphones",
+    "description": "High-quality wireless headphones with noise cancellation.",
+    "price": 149.99,
+    "discount": 10,
+    "category": "Electronics",
+    "stock": 25,
+    "liked": true,
+    "rating": 4.5,
+    "reviews": 12,
+    "reviewList": [
+      {
+        "userId": "user001",
+        "userName": "John Doe",
+        "reviewText": "Great sound quality and comfortable to wear!",
+        "rating": 5,
+        "date": "2025-01-10T10:30:00Z"
+      },
+      {
+        "userId": "user002",
+        "userName": "Jane Smith",
+        "reviewText": "Battery life could be better.",
+        "rating": 4,
+        "date": "2025-01-08T12:15:00Z"
+      }
+    ],
+    "image": [
+      "https://example.com/images/headphones1.jpg",
+      "https://example.com/images/headphones2.jpg"
+    ],
+    "shippingInfo": "Free standard shipping available",
+    "isFeatured": true
+  }
+
+
+  {
+    "company": "FashionNest",
+    "name": "Men's Casual Sneakers",
+    "description": "Stylish and comfortable sneakers for everyday wear.",
+    "price": 59.99,
+    "discount": 5,
+    "category": "Footwear",
+    "stock": 0,
+    "liked": false,
+    "rating": 3.8,
+    "reviews": 5,
+    "reviewList": [],
+    "image": [
+      "https://example.com/images/sneakers1.jpg"
+    ],
+    "shippingInfo": "Standard shipping available",
+    "isFeatured": false
+  }
+
+
+                  CART API TEST
+
+
+  {
+    "_id": "64b6c5b8f3e3a1bcbca4e000",
+    "userId": "user123",
+    "items": [
+      {
+        "productId": "64b6c5b8f3e3a1bcbca4d678",
+        "price": 20.99,
+        "quantity": 2
+      },
+      {
+        "productId": "64b6c5b8f3e3a1bcbca4d679",
+        "price": 45.99,
+        "quantity": 1
+      }
+    ]
+  }
+
+
+  {
+    "_id": "64b6c5b8f3e3a1bcbca4e001",
+    "userId": "user456",
+    "items": [
+      {
+        "productId": "64b6c5b8f3e3a1bcbca4d680",
+        "price": 199.99,
+        "quantity": 1
+      }
+    ]
+  }

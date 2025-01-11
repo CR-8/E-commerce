@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { CiSearch, CiUser, CiShoppingCart } from "react-icons/ci"
 import { FaHeart } from "react-icons/fa"
